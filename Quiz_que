@@ -1,0 +1,162 @@
+N001E.The language spoken by the people of Pakistan is ?
+---
+A.Hindi B.Palauan C.Sindhi D.Nauruan
+---
+explanation here
+___
+N002M.The World Largest desert is ?
+---
+A.Thar B.Kalahari C.Sahara D.Sonoran
+---
+explanation here
+___
+N003E.Country that has the highest in Barley Production ?
+---
+A.China B.India C.Russia D.France
+---
+explanation here
+___
+N004M.The metal whose salts are sensitive to light is ?
+---
+A.Zinc B.Silver C.Copper D.Aluminium
+---
+explanation here
+___
+N005E.The Central Rice Research Station is situated in ?
+---
+A.Chennai B.Cuttack C.Bangalore D.Quilon
+---
+explanation here
+___
+C006M.C99 standard guarantees uniqueness of ____ characters for internal names.
+---
+a) 31 b) 63 c) 12 d) 14
+---
+explanation here
+___
+C007D.Which of the following is not a valid variable name declaration?
+---
+a) int __a3 b) int __3a c) int __A3 d) None of the mentioned
+---
+explanation here
+___
+C008E.C99 standard guarantess uniqueness of _____ characters for external names.
+---
+a) 31 b) 6 c) 12 d) 14
+---
+explanation here
+
+___
+C009E.The output of the code below is
+#include <stdio.h>
+void main()
+{
+int x = 5;
+if (x < 1)
+printf("hello");
+if (x == 5)
+printf("hi");
+else
+printf("no");
+}
+---
+a)hi
+b)hello
+c)no
+d)None of the mentioned
+---
+elxplanation here
+___
+C010M.The output of the code below is
+#include <stdio.h>
+int x;
+void main()
+{
+if (x)
+printf("hi");
+else
+printf("how are u");
+}
+---
+a) hi
+b) how are you
+c) Compile time error
+d) None of the mentioned
+---
+elxplanation here
+___
+C011M.Comment on the following code below
+#include <stdio.h>
+void main()
+{
+int x = 5;
+if (true);
+printf("hello");
+}
+---
+a) It will display hello
+b) It will throw an error
+c) Nothing will be displayed
+d) Depends on compiler
+---
+explanation here
+___
+C012E.The output of the code below is
+#include <stdio.h>
+void main()
+{
+int x = 0;
+if (x == 0)
+printf("hi");
+else
+printf("how are u");
+printf("hello");
+}
+---
+a) hi
+b) how are you
+c) hello
+d) hihello
+---
+elxplanation here
+___
+C013E.The output of the code below is
+#include <stdio.h>
+void main()
+{
+int x = 5;
+if (x < 1);
+printf("Hello");
+}
+---
+a) Nothing
+b) Run time error
+c) Hello
+d) Varies
+---
+elxplanation here
+___
+C014D.Which of the following is not an arithmetic operation?
+---
+a) a *= 10;
+b) a /= 10;
+c) a != 10;
+d) a %= 10;
+---
+elxplanation here
+___
+N015D.There is a family, which has seven children. In this family, each boy has as many sisters as brothers 
+and each of the girl has twice as many brothers as sisters. 
+Now the question is, in this family how many brothers and sisters are there ?
+---
+a) 4 boys 3 girls b)3 boys 4 girls c)2 boys 5 girls d)5 boys 2 girls
+--- 
+Solution :
+The key to solve this puzzle lies in the puzzle statement only.
+Statement : Each boy has as many sisters as brothers. 
+The statement infers that there is 1 boy more than the number of girls.
+Statement : Each of the girls has twice as many brothers as sisters. 
+The statement infers that the number of boys are double the number of girls excluding the girl in question.
+Applying the information we obtained from the two statements and the number of children mentioned, 
+we can see that there is only one pair which follows all constraints i.e 4 Boys and 3 Girls.
+___
