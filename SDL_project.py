@@ -146,6 +146,29 @@ def GenerateSolution():
 						break
 	f.close()			
 	return str	
+#--------------------------------------EndofQuiz----------------------------
+
+def end_of_quiz():
+	os.system('clear')
+	print("<><><><><><><><><><> END OF QUIZ  <><><><><><><><><><>\n\n")
+	j=0
+	for j in range(0,noqiq):
+		if an_li[i]=='S':
+			j=j+1
+	if j>0:
+		print(j,'Questions are not attempted')
+	while True:
+		print("\n\n\n\t\t\t0-> attempt remaining Questions")
+		print("\n\n\n\t\t\t1-> Submit Test")
+		res=input("\n\n\n\t\t\tEnter Choise :");
+		if res=='0':
+			break
+		elif res=='1':
+			signal.alarm(0)
+			postQuiz()
+		else:
+			print('bad choise')
+		
 
 #--------------------------------------------------------------------------------------------
 def signal_handler(signum, frame):
@@ -283,10 +306,13 @@ def quiz():
 								print("\t\t\t2->stay on same que")
 								print("\t\t\t3->next que")
 								print("\t\t\t4->Display all questions")
-								choise=input('\n\t\t\tEnter your Choise :')
+								print("\t\t\t5->SUBMIT QUIZ")
+								choise=input('\n\n\t\t\tEnter your Choise :')
 								if choise=='1':
 									if i==0:
-										print('this is First Question')
+										os.system('clear')
+										print('\n\n\n\n\t\t\tthis is First Question')
+										sleep(1)
 									else:
 										i=i-1
 									break
@@ -294,7 +320,10 @@ def quiz():
 									break
 								elif choise=='3':
 									if i==noqiq-1:
-										print('this is Last Question')
+										os.system('clear')
+										print('\n\n\n\n\t\t\tthis is Last Question')
+										sleep(1)
+										
 									else:
 										i=i+1
 									break
@@ -317,6 +346,8 @@ def quiz():
 										
 									#some action  here
 									break
+								elif choise=='5':
+									end_of_quiz()
 								else:
 									print("Bad choise enter again")
 									continue
@@ -375,7 +406,7 @@ while True:
 	print("\n\n\n\t\t\t",end="")
 	printout('+----------------------+',RED)
 	print("\n\t\t\t\t",end="")
-	printout('Quiz',YELLOW)
+	printout('Quiz-o-Phile',YELLOW)
 	print("\n\t\t\t",end="")
 	printout('+----------------------+',RED)
 	print("\n\n\n\t\t\t",end="")
@@ -410,7 +441,7 @@ while True:
 	else:
 		print("\n\t\t\t",end="")
 		printout('You seem nervous...',YELLOW)
-'''		
+	
 os.system('clear')
 print('\n\n\n\t\t\t',end="")
 printout('  Breathe in Breathe out',YELLOW)
@@ -431,6 +462,6 @@ except Exception:
 signal.alarm(0)
 postQuiz()				
 #------------------------------Finishing Quiz----------------------------------
-'''
-quiz()
-postQuiz()
+
+#quiz()
+#postQuiz()
