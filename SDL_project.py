@@ -1,7 +1,5 @@
 '''Quiz Maker - Make an application which takes various questions from a file, picked randomly, and puts together a quiz for students. 
-Each quiz can be different and then reads a key to grade the quizzes.'''
-
-'''
+Each quiz can be different and then reads a key to grade the quizzes.
 noqif (int) - No of questions in Quiz_que
 noqiq (int) -No of questions in quiz
 qu_li (list) -List of question numbers
@@ -10,12 +8,10 @@ qu_li (list) -List of question numbers
 #1] skip question functionality
 #2] send score of contestant to our mail
 #3] display timer on terminal
-
 #--------------------------------------------------------------------------
 ##Notes:
 ##use printout(string,color) to display colourful output [color:- RED,GREEN,BLUE,etc]
 ##Install at for timer on ubuntu
-
 #-----------------------------------------------Imports---------------------------------------
 from termios import tcflush, TCIFLUSH
 import signal
@@ -38,7 +34,6 @@ t_que=0		#no of technical Que	->varies Branchwise
 nt_que=0	#no of non technical Que ->varies Branchwise
 #---------------------------------------------------------Note e_que+m_que+d_que must be equal to noqiq
 	# Also e_que< C___E and N___E and m_que< C___M and N___M and d_que< C___D and N___D for crash free result
-
 e_que=2		#no of easy Que	->constant
 m_que=2		#no of medium que ->constant
 d_que=1		#no of difficult que ->constant
@@ -62,8 +57,6 @@ def has_colours(stream):
         # guess false in case of error
         return False
 has_colours = has_colours(sys.stdout)
-
-
 def printout(text, colour=WHITE):
         if has_colours:
                 seq = "\x1b[1;%dm" % (30+colour) + text + "\x1b[0m"
@@ -97,9 +90,7 @@ def check():
 		print("\nDont participate in such events again")
 	f.close()
 	return score
-
 #--------------------------------------------sendMail Function-----------------------------------
-
 def sendMail(sender_id,receiver_id,email_body,sub):
 	fromaddr = sender_id
 	toaddr = receiver_id
@@ -107,10 +98,8 @@ def sendMail(sender_id,receiver_id,email_body,sub):
 	msg['From'] = fromaddr
 	msg['To'] = toaddr
 	msg['Subject'] = sub
-	 
 	body = email_body	#Enter message body here 
 	msg.attach(MIMEText(body, 'plain'))
-	 
 	# creates SMTP session
 	server = smtplib.SMTP('smtp.gmail.com', 587)
 	# start TLS for security
@@ -122,9 +111,7 @@ def sendMail(sender_id,receiver_id,email_body,sub):
 	server.sendmail(fromaddr, toaddr, text)
 	# terminating the session
 	server.quit()
-
 #----------------------------------------GenerateSolution Function---------------------------------
-
 def GenerateSolution():
 	f=open("Quiz_que")
 	str=" "
@@ -147,34 +134,41 @@ def GenerateSolution():
 	f.close()			
 	return str	
 #--------------------------------------EndofQuiz----------------------------
-
 def end_of_quiz():
 	os.system('clear')
-	print("<><><><><><><><><><> END OF QUIZ  <><><><><><><><><><>\n\n")
+	print("\n<><><><><><><><><><> END OF QUIZ  <><><><><><><><><><>\n\n")
 	j=0
-	for j in range(0,noqiq):
+	for i in range(0,noqiq):
 		if an_li[i]=='S':
 			j=j+1
 	if j>0:
 		print(j,'Questions are not attempted')
 	while True:
-		print("\n\n\n\t\t\t0-> attempt remaining Questions")
-		print("\n\n\n\t\t\t1-> Submit Test")
-		res=input("\n\n\n\t\t\tEnter Choise :");
+		print("\n\n\n\t\t\t0-> Edit Responses")
+		print("\n\n\t\t\t1-> Submit Test")
+		res=input("\n\n\t\t\tEnter Choise :");
 		if res=='0':
-			break
+			quiz()		#add functionality here
 		elif res=='1':
-			signal.alarm(0)
-			postQuiz()
+			dec=input("\n\t\t\tAre You sure (yes/no) : ")
+			dec=dec.upper()
+			if dec=='YES':
+				postQuiz()
 		else:
 			print('bad choise')
-		
-
+#-------------------------------------------------------------------------------
+def timeout_end_of_quiz():
+	signal.alarm(0)
+	os.system('clear')
+	#print("\n<><><><><><><><><><> END OF QUIZ  <><><><><><><><><><>\n\n")
+	print("\n\n\n\nSubmittiong your Test....")
+	sleep(3)
+	postQuiz()
 #--------------------------------------------------------------------------------------------
 def signal_handler(signum, frame):
     raise Exception("Timed out!")
 #------------------------------------------------------------------------
-def quiz():
+def create_quiz():
 	global branch
 	global qu_li
 	global an_li
@@ -246,16 +240,17 @@ def quiz():
 				for line in f:
 					if line[:3]=="___":
 						break
-				
-								
+	f.close()
+
+def quiz():
 	os.system('clear')
+	f=open('Quiz_que')
 	#print(qu_li)#testing
 	#print(len(qu_li))#testing
 	#print(type(qu_li[0]))#testing
 	#print(type(qu_li[1]))#testing
 	#print(type(qu_li[2]))#testing
 	#print(type(qu_li[3]))#testing
-
 	i=0
 	while i <noqiq:
 		f.seek(0)			#set file pointer to begining of file
@@ -277,7 +272,13 @@ def quiz():
 							print(line)
 					for line in f:				#prints options
 						if line[0:3]=="---":
-							print("\n")
+							if an_li[i]=='S':
+								printout("Status : Not Attempted ",YELLOW)
+							else:
+								printout("Status : Attempted [",YELLOW)
+								printout(an_li[i],YELLOW);
+								printout("]",YELLOW);
+							print()
 							printout("Enter S/s to skip this Question",GREEN) 
 							break
 						else:
@@ -285,7 +286,6 @@ def quiz():
 					for line in f:				#skips explanation
 						if line[0:3]=="___":
 							break
-								
 					while True:
 						an=input("\nEnter Your Answer : ")
 						an=an.upper() 		#convert to uppercase
@@ -323,7 +323,6 @@ def quiz():
 										os.system('clear')
 										print('\n\n\n\n\t\t\tthis is Last Question')
 										sleep(1)
-										
 									else:
 										i=i+1
 									break
@@ -334,29 +333,25 @@ def quiz():
 											print("\t\t\t",j+1,"\t->","Not Answered")
 										else:
 											print("\t\t\t",j+1,"\t->",an_li[j])
-									try:
-										j=int(input("\t\t\tJump to Question No : "))
-										if j>0 and j<=noqiq:
-											i=j-1
-										else:
-											printout("Question number is Out of Range",RED)
-											sleep(1)
-									except:
-										print("Something went wrong")
-										
+									j=input("\n\t\t\tJump to Question No : ")
+									if j>'0' and j<=str(noqiq):
+										i=int(j)-1
+									else:
+										printout("Question number is Out of Range",RED)
+										print()
+										sleep(1)
 									#some action  here
 									break
 								elif choise=='5':
 									end_of_quiz()
 								else:
-									print("Bad choise enter again")
+									print("\n\t\t\t")
+									printout("Bad choise Try Again",RED);
 									continue
 						else :
-							print("Bad choise Try Again")
+							printout("Bad choise Try Again",RED);
 						if bit==1:
 							break
-				
-				
 				else:
 					#print('in else')#testing
 					#print(line[1:4])#testing
@@ -365,13 +360,10 @@ def quiz():
 							break	
 				if flag==0:
 					break
-				
-				
-				
-				
 	f.close()
 #-------------------------------------------------------------------------------------
 def postQuiz():
+	signal.alarm(0)
 	#print(qu_li)#testing
 	#print(an_li)#testing
 	os.system('clear')
@@ -434,34 +426,40 @@ while True:
 	branch=input()			#
 	print("\n\n\t\t",end="")
 	name=email.split('@')
-	printout('Welcome '+str(name[0])+' Are you Ready??(y/n) : ',RED)
+	printout('Welcome '+str(name[0])+' Are you Ready??(y/n) : ',GREEN)
 	yn=input()
 	if yn=='y' or yn=='Y':
 		break
 	else:
 		print("\n\t\t\t",end="")
 		printout('You seem nervous...',YELLOW)
-	
 os.system('clear')
 print('\n\n\n\t\t\t',end="")
 printout('  Breathe in Breathe out',YELLOW)
-print('\n\n\t\t\tAI is Creating Quiz For You\n\n\n')
+print('\n\n\t\t\t  Creating Quiz For You\n\n\n')
 for i in range(21):			#code to display progressbar
     sys.stdout.write('\r')
     sys.stdout.write("\t\t\t[%-20s] %d%%" % ('='*i, 5*i))
     sys.stdout.flush()
     sleep(0.25)
+
+#--------------------------------------------------------------------------------
+
+create_quiz()
+quiz()
+end_of_quiz()
+'''
 #---------------------------Logic for Limited Time----------------------------	
 signal.signal(signal.SIGALRM, signal_handler)
-signal.alarm(30)   # Enter Desired Time
+signal.alarm(20)   # Enter Desired Time
 try:
-    quiz()
+    	quiz()
 except Exception:
-    print("\n\n\n")
-    printout("Timed out!",RED)
-signal.alarm(0)
-postQuiz()				
+	print("\n\n\n")
+	printout("Timed out!",RED)
+	timeout_end_of_quiz()
+else:
+	end_of_quiz()'''
 #------------------------------Finishing Quiz----------------------------------
-
 #quiz()
 #postQuiz()
