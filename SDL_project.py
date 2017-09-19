@@ -446,9 +446,9 @@ for i in range(21):			#code to display progressbar
 #--------------------------------------------------------------------------------
 
 create_quiz()
-quiz()
-end_of_quiz()
-'''
+#quiz()
+#end_of_quiz()
+
 #---------------------------Logic for Limited Time----------------------------	
 signal.signal(signal.SIGALRM, signal_handler)
 signal.alarm(20)   # Enter Desired Time
@@ -459,7 +459,7 @@ except Exception:
 	printout("Timed out!",RED)
 	timeout_end_of_quiz()
 else:
-	end_of_quiz()'''
+	end_of_quiz()
 #------------------------------Finishing Quiz----------------------------------
 #quiz()
 #postQuiz()
